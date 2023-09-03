@@ -42,7 +42,7 @@ class Node():
     else:
       likelihood = 54.6
 
-    return 1 if enableAlwaysInfection else likelihood
+    return 100 if enableAlwaysInfection else likelihood
   
   def infectNeighbors(self):
     # Infect all uninfected neighbors

@@ -66,14 +66,14 @@ def createNodeNetwork(numberOfNodes, nodes, min_connections, max_connections):
   # print("------ Creating Network -----")
 
   # # For testing: Print network of nodes
-  # for i in range(len(nodes)):
+  for i in range(len(nodes)):
     #neighborPos = nodes[i].connectNumbers
 #please do not touch this code i had to go but i will get this sorted out pls pls thanks
-    # print(f"Node {i}: Connected with {nodes[i].connectNumbers}")
+    print(f"Node {i}: Connected with {nodes[i].connectNumbers}")
 
     #window.DrawLines(i, neighborPos)
 
-  # print("--------- DONE -----------")
+  print("--------- DONE -----------")
 
 def runInfectionSimulation(numDays, nodes):
   # Determine if it is the first day
@@ -86,14 +86,14 @@ def runInfectionSimulation(numDays, nodes):
     # Select patient zero
     p_zero = random.choice(nodes)
     p_zero.state = 1
-    # print(f"Patient-Zero is Node #{p_zero.id}\n--------------------------")
+    print(f"Patient-Zero is Node #{p_zero.id}\n--------------------------")
   
-    # # Just to make it easier to read on right
-    # print("Infected Nodes After Day 0 --------------------")
-    # print(p_zero.id)
+    # Just to make it easier to read on right
+    print("Infected Nodes After Day 0 --------------------")
+    print(p_zero.id)
 
   for day in range(1, numDays + 1):
-    # print(f"\nInfected Nodes After Day {day} --------------------")
+    print(f"\nInfected Nodes After Day {day} --------------------")
 
     infectednodes = []
 
@@ -105,10 +105,10 @@ def runInfectionSimulation(numDays, nodes):
       if node.state == 1:
         node.infectNeighbors()
 
-    # # For testing:
-    # for node in nodes:
-    #   if node.state == 1:
-    #     print(node.id, end=" ")
-    # print("")
+    # For testing:
+    for node in nodes:
+      if node.state == 1:
+        print(node.id, end=" ")
+    print("")
 
   return p_zero

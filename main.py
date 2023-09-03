@@ -14,3 +14,4 @@ MIN_CONNECTIONS, MAX_CONNECTIONS = random.randint(0, 1), random.randint(3, 4)
 network.createNodeNetwork(SIZE, nodes, MIN_CONNECTIONS, MAX_CONNECTIONS)
 p_zero = network.runInfectionSimulation(TIME, nodes)
   
+window.CreateNetwork(SIZE)

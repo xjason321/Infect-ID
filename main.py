@@ -6,7 +6,7 @@ import window
 nodes = [] # list of "Node" objects
 
 # CONFIG FOR EASY ACCESS
-SIZE = 30
+SIZE = 10
 TIME = random.randint(5, 7)
 MIN_CONNECTIONS, MAX_CONNECTIONS = random.randint(0, 1), random.randint(3, 4)
 
@@ -14,4 +14,6 @@ MIN_CONNECTIONS, MAX_CONNECTIONS = random.randint(0, 1), random.randint(3, 4)
 network.createNodeNetwork(SIZE, nodes, MIN_CONNECTIONS, MAX_CONNECTIONS)
 p_zero = network.runInfectionSimulation(TIME, nodes)
   
+window.CreateNodes(SIZE)
+window.InitNodes(SIZE)
 window.CreateNetwork(SIZE)

@@ -1,9 +1,16 @@
-#DO NOT TOUCH THIS CODE IT IS VERY FRAGILE BUT I HAD TO GO I WILL FIX IT OK BYE
-
+#LETS GOOOO
 import random as rm
 import tkinter as tk
 from tkinter import Canvas, ttk
+import networksim
 
+centerXvalues = []
+centerYvalues = []
+nodeNeighbors = []
+
+nodeValues = []
+nodeUI = [] #not using rn
+infectedNodes = []
 
 root = tk.Tk()
 
@@ -23,21 +30,25 @@ def mainW():
   
   root.mainloop()
 """
-#class Node:
-  #def __init__(self, cenX, cenY):
-    #self.cenX = cenX
-    #self.cenY = cenY
-
-  #def DefineNeighbors(self, cenX, cenY, neighborX, neighborY):
 
 #to do: drawing connections between nodes
 #have an array of x and y vals
 #assign circles to nodes
 #calculate slope, draw lines between points
 #note all radii = 5
-def CreateNetwork(size):
-  canvas = tk.Canvas(root, width=200, height=200)
-  
+class Node():
+
+  def __init__(self, id, cenX, cenY, neighbors):
+    self.id = id
+    self.cenX = cenX
+    self.cenY = cenY
+    self.state = 0  # 1 is infected
+    self.neighbors = neighbors
+
+def Robbery(connections):
+  nodeNeighbors.append(connections)
+
+def CreateNodes(size):
   for x in range(0, size):
     # Prevent repeating of nodes
     while True:
@@ -46,30 +57,39 @@ def CreateNetwork(size):
       
       if randX not in centerXvalues and randY not in centerYvalues:
         break
-    
-    canvas.create_oval(randX, randY, \
-                       randX + 10, randY + 10)
 
     centerXvalues.append(randX + 5)
     centerYvalues.append(randY + 5)
 
-    print(centerXvalues, centerYvalues)
+def ReceiveStatus(node):
+  infectedNodes.append(node)
+  #infectedNodes = infectednodes
+  #print(infectedNodes)
 
-    #newNode = Node(randX + 5, randY + 5)
-    #nodes.append(newNode)
+def InitNodes(size):
+  for i in range(0, size):
+    obj = Node(i, centerXvalues[i], centerYvalues[i], nodeNeighbors[i])
+    nodeValues.append(obj)
+
+def CreateNetwork(size):
+  canvas = tk.Canvas(root, width=200, height=200)
+  
+  for i in range(0, size):
+    temp = nodeValues[i]
+
+    if temp.id not in infectedNodes:
+      obj = canvas.create_oval(temp.cenX - 5., temp.cenY - 5, temp.cenX + 5, temp.cenY + 5)
+      nodeUI.append(obj)
+    else:
+      obj = canvas.create_oval(temp.cenX - 5., temp.cenY - 5, temp.cenX + 5, temp.cenY + 5, fill="red")
+      nodeUI.append(obj)
+
+  for i in range(0, size):
+    thisNeighbors = nodeNeighbors[i]
+
+    for j in thisNeighbors:
+      canvas.create_line((centerXvalues[i], centerYvalues[i]), \
+                         (centerXvalues[j], centerYvalues[j]))
 
   canvas.pack()
   root.mainloop()
-
-#def DrawLines(i, neighborPos):
-  #canvas = tk.Canvas(root, width=200, height=200)
-  
-  #canvas.create_line((centerXvalues[i], centerYvalues[i]), \
-  #(centerXvalues[neighborPos], centerYvalues[neighborPos]))
-
-  #canvas.pack()
-  #root.mainloop()
-
-centerXvalues = []
-centerYvalues = []
-nodes = []

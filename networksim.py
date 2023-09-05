@@ -1,4 +1,5 @@
 import random
+import window
 
 global p_zero
 
@@ -67,11 +68,9 @@ def createNodeNetwork(numberOfNodes, nodes, min_connections, max_connections):
 
   # # For testing: Print network of nodes
   for i in range(len(nodes)):
-    #neighborPos = nodes[i].connectNumbers
-#please do not touch this code i had to go but i will get this sorted out pls pls thanks
-    print(f"Node {i}: Connected with {nodes[i].connectNumbers}")
 
-    #window.DrawLines(i, neighborPos)
+    print(f"Node {i}: Connected with {nodes[i].connectNumbers}")
+    window.Robbery(nodes[i].connectNumbers)
 
   print("--------- DONE -----------")
 
@@ -109,6 +108,10 @@ def runInfectionSimulation(numDays, nodes):
     for node in nodes:
       if node.state == 1:
         print(node.id, end=" ")
+        window.ReceiveStatus(node.id)
     print("")
+
+    #print("###", infectednodes)
+    #window.ReceiveStatus(infectednodes)
 
   return p_zero

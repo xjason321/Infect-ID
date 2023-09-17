@@ -4,7 +4,7 @@ import Node as nn
 class Player():
     def __init__(self):
         self.nodes = [] # list of "Node" objects
-        self.size = 120
+        self.size = 820
         self.time = 4
         self.min_connections, self.max_connections = 1, 2
         self.num_visible_to_player = round(0.3 * self.size) # Replace .1 with percent nodes visible to player

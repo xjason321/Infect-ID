@@ -14,8 +14,8 @@ class Node():
     self.timeInfected = None
 
     while True:
-      self.X = random.randint(2, 18) * 30
-      self.Y = random.randint(2, 18) * 30
+      self.X = random.randint(2, 98) * 30
+      self.Y = random.randint(2, 98) * 30
       
       if (self.X, self.Y) not in centerValues:
         break

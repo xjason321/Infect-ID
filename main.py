@@ -29,10 +29,10 @@ print(f"Sampled {len(player.sampled)} Nodes: {player.sampled}")
 sorted_indices = ai.getSortedIds()
 
 # Find spread pattern for most likely
-for Id in sorted_indices:
+for Id in sorted_indices[-100:]:
     ai.TraceSpreadPattern(player, Id)
 
-print("Traced Spread Patterns For [All Nodes]")
+print(f"Traced Spread Patterns For {sorted_indices[-100:]}")
 
 # Compare likelihoods again
 sorted_indices = ai.getSortedIds()
@@ -45,5 +45,5 @@ THIS IS THE ACTUAL AI PART ---------------------------------------------------
 """
 
 
-# Start window loop
-window.CreateNetwork(root, canvas, player)
+# # Start window loop
+# window.CreateNetwork(root, canvas, player)

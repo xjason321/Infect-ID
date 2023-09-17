@@ -23,7 +23,11 @@ class Algorithm():
             if node.state == 0:
                 self.nodeLikelihoods[node.id] = 0
                 for neighbor in node.connections:
-                    self.nodeLikelihoods[neighbor.id] /= 2 
+                    self.nodeLikelihoods[neighbor.id] /= 2
+            elif node.state == 1:
+                self.nodeLikelihoods[node.id] += 0.1
+                for neighbor in node.connections:
+                    self.nodeLikelihoods[neighbor.id] += 0.1
     
     def ChooseOneToSample(self, nodes):
         # Find most likely after initial scan

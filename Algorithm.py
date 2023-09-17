@@ -16,7 +16,7 @@ class Algorithm():
     def __init__(self, size):
         self.nodeLikelihoods = [1] * size
 
-    def Trace(self, nodes):
+    def InitialScan(self, nodes):
         # All negative nodes can't be patient zero, and the chances
         # of their neighbors being patient zero is less.
         for node in nodes:
@@ -27,7 +27,7 @@ class Algorithm():
     
     def ChooseOneToSample(self, nodes):
         # Find most likely after initial scan
-        self.Trace(nodes)
+        self.InitialScan(nodes)
         mostLikely = max(self.nodeLikelihoods)
         
         # Find most likely nodes and sample them

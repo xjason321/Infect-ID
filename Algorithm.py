@@ -14,7 +14,7 @@ import math, random
 
 class Algorithm():
     def __init__(self, size):
-        self.nodeLikelihoods = [1] * size
+        self.nodeLikelihoods = [5] * size
 
     def InitialScan(self, nodes):
         # All negative nodes can't be patient zero, and the chances
@@ -29,14 +29,24 @@ class Algorithm():
                 for neighbor in node.connections:
                     self.nodeLikelihoods[neighbor.id] += 0.1
     
-    def ChooseOneToSample(self, nodes):
+    def ChooseOneToSample(self, player):
         # Find most likely after initial scan
-        self.InitialScan(nodes)
+        self.InitialScan(player.nodes)
+
+        save = []
+        
+        for node in player.sampled:
+            save.append((player.nodes[node].id, self.nodeLikelihoods[node]))
+            self.nodeLikelihoods[node] = -999
+
         mostLikely = max(self.nodeLikelihoods)
+
+        for Id, likelihood in save:
+            self.nodeLikelihoods[Id] = likelihood
         
         # Find most likely nodes and sample them
         likelyNodes = []
-        for node in nodes:
+        for node in player.nodes:
             if self.nodeLikelihoods[node.id] == mostLikely:
                 likelyNodes.append(node.id)
         

@@ -20,7 +20,7 @@ ai = a.Algorithm(len(player.nodes))
 
 # Sample 20 Nodes
 for i in range(20):
-    chosen = ai.ChooseOneToSample(player.nodes)
+    chosen = ai.ChooseOneToSample(player)
     player.sample(chosen)
 
 print(f"Sampled {len(player.sampled)} Nodes: {player.sampled}")

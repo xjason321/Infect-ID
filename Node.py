@@ -11,6 +11,7 @@ class Node():
 
     self.visibleToPlayer = False
     self.isPatientZero = False
+    self.timeInfected = None
 
     while True:
       self.X = random.randint(2, 18) * 30
@@ -22,22 +23,20 @@ class Node():
     self.age = random.randint(1, 80)
 
   def makeConnections(self, nodes, min_connections, max_connections):
-    numberConnections = random.randint(min_connections, max_connections)
+    numberConnections = min_connections
 
     for i in range(numberConnections):
-      # Mark a new target
-      target = random.randint(0, len(nodes) - 1)
+      while True:
+        target = random.randint(0, len(nodes) - 1)
+        # If not already connected or target is not self
+        if nodes[target] not in self.connections and target != self.id:
+          break
+      
+      self.connections.append(nodes[target])
+      self.connectNumbers.append(nodes[target].id)
 
-      # If not already connected or target is not self
-      if nodes[target] not in self.connections and \
-      target != self.id and \
-      self not in nodes[target].connections:
-
-        self.connections.append(nodes[target])
-        self.connectNumbers.append(nodes[target].id)
-
-        nodes[target].connections.append(self)
-        nodes[target].connectNumbers.append(self.id)
+      nodes[target].connections.append(self)
+      nodes[target].connectNumbers.append(self.id)
 
   def calculateLikelihood(self, enableAlwaysInfection=False):
     if 0 <= self.age <= 17:
@@ -53,7 +52,7 @@ class Node():
 
     return 100 if enableAlwaysInfection else likelihood
   
-  def infectNeighbors(self):
+  def infectNeighbors(self, time):
     # Infect all uninfected neighbors
     for neighbor in self.connections:
       # Calculate infection likelihood
@@ -61,8 +60,8 @@ class Node():
       
       if random.randint(0, 1000)/10 <= likelihood:
         neighbor.state = 1
-
-
+        neighbor.timeInfected = time
+        
 def createNodeNetwork(numberOfNodes, nodes, min_connections, max_connections):
   # Initialize center values:
   centerValues = []
@@ -80,31 +79,32 @@ def createNodeNetwork(numberOfNodes, nodes, min_connections, max_connections):
   for node in nodes:
     node.makeConnections(nodes, min_connections, max_connections)
 
-  print("------ Creating Network -----")
+  # print("------ Creating Network -----")
 
   # For testing: Print network of nodes
-  for i in range(len(nodes)):
+  # for i in range(len(nodes)):
     #neighborPos = nodes[i].connectNumbers
 #please do not touch this code i had to go but i will get this sorted out pls pls thanks
-    print(f"Node {i}: Connected with {nodes[i].connectNumbers}")
+    # print(f"Node {i}: Connected with {nodes[i].connectNumbers}")
 
     #window.DrawLines(i, neighborPos)
 
-  print("--------- DONE -----------")
+  # print("--------- DONE -----------")
 
-def runInfectionSimulation(numDays, nodes):
+def runInfectionSimulation(numDays, nodes, selected_p_zero=None):
   # Select patient zero
-  p_zero = random.choice(nodes)
+  p_zero = selected_p_zero if selected_p_zero else random.choice(nodes)
   p_zero.state = 1
   p_zero.isPatientZero = True
-  print(f"Patient-Zero is Node #{p_zero.id}, X:{p_zero.X}, Y:{p_zero.Y}\n--------------------------")
+  p_zero.timeInfected = 0
+  # print(f"Patient-Zero is Node #{p_zero.id}, X:{p_zero.X}, Y:{p_zero.Y}\n--------------------------")
 
   # Just to make it easier to read on right
-  print("Infected Nodes After Day 0 --------------------")
-  print(p_zero.id)
+  # print("Infected Nodes After Day 0 --------------------")
+  # print(p_zero.id)
 
   for day in range(1, numDays + 1):
-    print(f"\nInfected Nodes --------------------")
+    # print(f"\nInfected Nodes --------------------")
 
     infectednodes = []
 
@@ -114,10 +114,6 @@ def runInfectionSimulation(numDays, nodes):
 
     for node in infectednodes:
       if node.state == 1:
-        node.infectNeighbors()
+        node.infectNeighbors(day)
 
-    # For testing:
-    for node in nodes:
-      if node.state == 1:
-        print(node.id, end=" ")
-    print("")
+  return p_zero.id

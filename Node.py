@@ -12,13 +12,10 @@ class Node():
     self.visibleToPlayer = False
     self.isPatientZero = False
     self.timeInfected = None
+    self.selectedByAI = "False"
 
-    while True:
-      self.X = random.randint(2, 98) * 30
-      self.Y = random.randint(2, 98) * 30
-      
-      if (self.X, self.Y) not in centerValues:
-        break
+    self.X = 0
+    self.Y = 0
     
     self.age = random.randint(1, 80)
 
@@ -55,12 +52,13 @@ class Node():
   def infectNeighbors(self, time):
     # Infect all uninfected neighbors
     for neighbor in self.connections:
-      # Calculate infection likelihood
-      likelihood = neighbor.calculateLikelihood()
-      
-      if random.randint(0, 1000)/10 <= likelihood:
-        neighbor.state = 1
-        neighbor.timeInfected = time
+      if neighbor.state == 0:
+        # Calculate infection likelihood
+        likelihood = neighbor.calculateLikelihood()
+        
+        if random.randint(0, 1000)/10 <= likelihood:
+          neighbor.state = 1
+          neighbor.timeInfected = time
         
 def createNodeNetwork(numberOfNodes, nodes, min_connections, max_connections):
   # Initialize center values:
@@ -78,18 +76,6 @@ def createNodeNetwork(numberOfNodes, nodes, min_connections, max_connections):
   # Make connections
   for node in nodes:
     node.makeConnections(nodes, min_connections, max_connections)
-
-  # print("------ Creating Network -----")
-
-  # For testing: Print network of nodes
-  # for i in range(len(nodes)):
-    #neighborPos = nodes[i].connectNumbers
-#please do not touch this code i had to go but i will get this sorted out pls pls thanks
-    # print(f"Node {i}: Connected with {nodes[i].connectNumbers}")
-
-    #window.DrawLines(i, neighborPos)
-
-  # print("--------- DONE -----------")
 
 def runInfectionSimulation(numDays, nodes, selected_p_zero=None):
   # Select patient zero

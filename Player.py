@@ -2,12 +2,12 @@ import random
 import Node as nn
 
 class Player():
-    def __init__(self):
+    def __init__(self, size, time, min, max, percent):
         self.nodes = [] # list of "Node" objects
-        self.size = 820
-        self.time = 4
-        self.min_connections, self.max_connections = 1, 2
-        self.num_visible_to_player = round(0.3 * self.size) # Replace .1 with percent nodes visible to player
+        self.size = size
+        self.time = time
+        self.min_connections, self.max_connections = min, max
+        self.num_visible_to_player = round(percent * self.size) # Replace .1 with percent nodes visible to player
         
         # new shit
         self.sampled = []
@@ -54,4 +54,3 @@ class Player():
             self.is_winner = False
 
         self.is_done = True
-

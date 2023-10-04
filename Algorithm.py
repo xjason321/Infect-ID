@@ -3,18 +3,18 @@ import copy
 import Node as nn
 import math, random
 
-# Loop through database
-# If a node is negative, lower the chances of its neighbors being p_zero by their age likelihood
-# Sample most likely p_zero
-# Repeat
-
-# After (.6 * SIZE) times:
-# Run simulation on most likely and find infection pattern
-# Calculate likelihood of being p_zero
-
 class Algorithm():
-    def __init__(self, size):
-        self.nodeLikelihoods = [5] * size
+    def __init__(self, size, negativeEffectBias, positiveBias, positiveEffectBias, similarityWeight):
+      self.nodeLikelihoods = [1] * size
+      # self.percentSamplesAlloted = 0.2
+      # self.percentTracesAlloted = 0.05
+      
+      self.negativeEffectBias = negativeEffectBias
+    
+      self.positiveBias = positiveBias
+      self.positiveEffectBias = positiveEffectBias
+      
+      self.similarityWeight = similarityWeight
 
     def InitialScan(self, nodes):
         # All negative nodes can't be patient zero, and the chances
@@ -23,11 +23,11 @@ class Algorithm():
             if node.state == 0:
                 self.nodeLikelihoods[node.id] = 0
                 for neighbor in node.connections:
-                    self.nodeLikelihoods[neighbor.id] /= 2
+                    self.nodeLikelihoods[neighbor.id] += self.negativeEffectBias
             elif node.state == 1:
-                self.nodeLikelihoods[node.id] += 0.1
+                self.nodeLikelihoods[node.id] += self.positiveBias
                 for neighbor in node.connections:
-                    self.nodeLikelihoods[neighbor.id] += 0.1
+                    self.nodeLikelihoods[neighbor.id] += self.positiveEffectBias
     
     def ChooseOneToSample(self, player):
         # Find most likely after initial scan
@@ -52,7 +52,7 @@ class Algorithm():
         
         return random.choice(likelyNodes) 
        
-    def FindDifference(list1, list2):
+    def FindDifference(self, list1, list2):
         # Calculate Jaccard similarity
         intersection = len(set(list1).intersection(set(list2)))
         union = len(set(list1).union(set(list2)))
@@ -72,9 +72,9 @@ class Algorithm():
         infectionsForNewPlayer = [node.state for node in new_player.nodes]
         infectionsForCurrentPlayer = [node.state for node in Player.nodes]
 
-        difference = math.fabs(Algorithm.FindDifference(infectionsForNewPlayer, infectionsForCurrentPlayer))
+        difference = math.fabs(self.FindDifference(infectionsForNewPlayer, infectionsForCurrentPlayer))
 
-        self.nodeLikelihoods[Player.nodes[target_node].id] -= difference
+        self.nodeLikelihoods[Player.nodes[target_node].id] -= (difference * self.similarityWeight)
     
     def getSortedIds(self):
         indexed_arr = [(value, index) for index, value in enumerate(self.nodeLikelihoods)]

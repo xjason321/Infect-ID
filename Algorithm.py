@@ -23,7 +23,7 @@ class Algorithm():
             if node.state == 0:
                 self.nodeLikelihoods[node.id] = 0
                 for neighbor in node.connections:
-                    self.nodeLikelihoods[neighbor.id] += self.negativeEffectBias
+                    self.nodeLikelihoods[neighbor.id] -= self.negativeEffectBias
             elif node.state == 1:
                 self.nodeLikelihoods[node.id] += self.positiveBias
                 for neighbor in node.connections:

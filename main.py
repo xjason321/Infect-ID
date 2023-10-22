@@ -51,19 +51,19 @@ def index():
 
   # NEAT GENOME SHIT: (THESE WILL BE GENERATED)
   # RIGHT NOW THEY ARE NUMBERS PULLED FROM MY ASS
-  negativeEffectBias = 0.1
-  positiveBias = 0.1
-  positiveEffectBias = 0.05
-  similarityWeight = 1
-  percentSamples = 0.1
-  percentTraced = 0.5
+  negativeEffectBias = 70.16
+  positiveBias = 58.123
+  positiveEffectBias = 22.98
+  similarityWeight = 119.5
+  percentSamples = 0
+  percentTraced = 0
 
   player = p.Player(
-      size=random.randint(50, 100),
+      size=random.randint(100, 450),
       time=random.randint(2, 5),
-      min=random.randint(2, 4),
-      max=random.randint(3, 5),
-      percent=random.uniform(0, 0.1)  # initially given
+      min=random.randint(1, 3),
+      max=random.randint(4, 5),
+      percent=random.uniform(0.15, 0.25)  # initially given
   )
 
   ai = a.Algorithm(

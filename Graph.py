@@ -4,9 +4,9 @@ from pyvis.network import Network
 
 def CreateGraphHTML(player, path):
   G = nx.Graph()
-  
+
   elements = []
-  
+
   for i, node in enumerate(player.nodes):
 
     if node.visibleToPlayer:
@@ -22,7 +22,7 @@ def CreateGraphHTML(player, path):
     else:
       status = "Unknown"
       color = "gray"
-    
+
     elements.append((i, {"ID": str(node.id),\
                          "Status": status,\
                          "color": color,\
@@ -31,7 +31,7 @@ def CreateGraphHTML(player, path):
                          "TimeInfected": str(node.timeInfected) if node.timeInfected else "N/A",\
                          "chosen": node.selectedByAI
                         }))
-  
+
   G.add_nodes_from(elements)
 
   for node in player.nodes:
@@ -58,7 +58,7 @@ def CreateGraphHTML(player, path):
   # Add node information to be displayed on hover
   for node in nt.nodes:
       node_str = """Node {ID} - Status: {Status}
-                    
+
                     Age: {Age} y/o
                     Connections: {Connections}
                     Time Infected: {TimeInfected}
@@ -69,17 +69,17 @@ def CreateGraphHTML(player, path):
 
       if node["chosen"] == "True":
         node["size"] = 30
-  
+
   # nt.show("template.html")  # Save the visualization to an HTML file
 
   html = nt.generate_html().split("\n")
-
+  
   if len(player.nodes) < 100:
     node_line, edges_line = 90, 91
   else:
     node_line, edges_line = 168, 169
-  
+
   nodes = html[node_line]
   edges = html[edges_line]
-
+  
   return nodes, edges

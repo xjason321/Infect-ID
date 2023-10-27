@@ -3,7 +3,7 @@ import random
 
 class Node():
 
-  def __init__(self, id, centerValues):
+  def __init__(self, id, centerValues=0):
     self.id = id
     self.state = 0  # 1 is infected
     self.connections = []
@@ -18,6 +18,11 @@ class Node():
     self.Y = 0
     
     self.age = random.randint(1, 80)
+
+  def add_connections(self, node, ID):
+
+    self.connections.append(node)
+    self.connectNumbers.append(ID)
 
   def makeConnections(self, nodes, min_connections, max_connections):
     numberConnections = min_connections

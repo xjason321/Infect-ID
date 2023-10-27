@@ -58,15 +58,23 @@ def index():
   percentSamples = 0
   percentTraced = 0
 
+  '''
   player = p.Player(
-      size=random.randint(100, 450),
+      #size=random.randint(100, 450),
       time=random.randint(2, 5),
       min=random.randint(1, 3),
       max=random.randint(4, 5),
       percent=random.uniform(0.15, 0.25)  # initially given
-  )
+      .
+  )'''
 
-  ai = a.Algorithm(
+  csv_path = "a.csv"
+
+  player = p.Player(100, 2, 3, 4, 0.1, csv_pathway=csv_path)
+
+  player.load_csv()
+
+  '''ai = a.Algorithm(
       size=player.size,
 
       # NEAT
@@ -76,7 +84,7 @@ def index():
       similarityWeight=similarityWeight)
 
   sorted, traced = run_ai(ai, player, percentSamples, percentTraced)
-
+  '''
   # Start window loop
   nodes, edges = graph.CreateGraphHTML(player, "templates/index.html")
 

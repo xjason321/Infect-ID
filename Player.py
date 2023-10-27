@@ -4,7 +4,7 @@ import csv
 
 class Player():
     def __init__(self, size, time, min, max, percent, csv_pathway=None):
-        self.nodes = [] # list of "Node" objects "Jason make it a dictionary!!!"
+        self.nodes = [] # list of "Node" objects "
         self.size = size
         self.time = time
         self.min_connections, self.max_connections = min, max
@@ -32,32 +32,41 @@ class Player():
 
     def load_csv(self):
 
+        temp_nodes = []
         Node_data = {}
 
         with open(self.csv, newline='') as csvfile:
             reader = csv.reader(csvfile)
             
-        next(reader, None)
-            
-        for row in reader:
-            Id = row[0]
-            value = row[1:]
-            state = value[0]
-            connections = value[1]
+            next(reader, None)
+                
+            for row in reader:
+                Id = row[0]
+                value = row[1:]
+                Patient_name = value[0]
+                state = value[1]
+                connections = value[2]
 
-            Node_data[Id] = (state, connections)
+                Node_data[Id] = (Patient_name, state, connections)
 
         for node in Node_data.keys():
-            self.nodes.append(nn(node)) #node -> ID
+            ns = nn.Node(node)
+            temp_nodes.append(ns) #node -> ID
 
-        for node in self.nodes:
+        for node in temp_nodes:
+                
             Id = node.id
-            state, connections = Node_data[Id]
+            Patient_name = Node_data[Id][0]
+            state = Node_data[Id][1]
+            connections = Node_data[Id][2]
 
             node.state = state
-            for i in connections:
+            node.name = Patient_name
+            for i in connections.split(","):
                 node.connectNumbers.append(i)
+                node.connections.append(temp_nodes[int(i)-1])
 
+        self.nodes = temp_nodes
         
 
 

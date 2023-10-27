@@ -8,6 +8,7 @@ class Node():
     self.state = 0  # 1 is infected
     self.connections = []
     self.connectNumbers = []
+    self.name = ""
 
     self.visibleToPlayer = False
     self.isPatientZero = False
@@ -18,11 +19,6 @@ class Node():
     self.Y = 0
     
     self.age = random.randint(1, 80)
-
-  def add_connections(self, node, ID):
-
-    self.connections.append(node)
-    self.connectNumbers.append(ID)
 
   def makeConnections(self, nodes, min_connections, max_connections):
     numberConnections = min_connections

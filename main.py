@@ -102,8 +102,6 @@ def index():
                          edges=edges,
                          actual_p_zero=player.p_zero,
                          sampled=str(player.sampled),
-                         sorted=sorted[-20:],
-                         traced=str(traced),
                          num_nodes=len(player.nodes),
                          num_positive=numPositive,
                          num_negative=numNegative,

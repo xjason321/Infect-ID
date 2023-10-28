@@ -2,6 +2,7 @@ import random
 import Node as nn
 import csv
 import Player
+import Graph as graph
 
 csv_path = "a.csv"
 
@@ -11,10 +12,4 @@ player1.load_csv()
 
 lis = player1.nodes
 
-for node in lis:
-
-    print(node.id)
-    print(node.name)
-    print(node.connections)
-    print(node.connectNumbers)
-    print("\n\n")
+graph.CreateGraphHTML(player1)

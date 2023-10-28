@@ -2,7 +2,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from pyvis.network import Network
 
-def CreateGraphHTML(player, path):
+def CreateGraphHTML(player, path=None):
   G = nx.Graph()
 
   elements = []
@@ -34,10 +34,13 @@ def CreateGraphHTML(player, path):
 
   G.add_nodes_from(elements)
 
+  #Bug!!
   for node in player.nodes:
     for connection in node.connectNumbers:
       G.add_edge(node.id, connection)
+  #...
 
+  
   nt = Network(notebook=True)
   nt.from_nx(G)
 
@@ -57,17 +60,23 @@ def CreateGraphHTML(player, path):
 
   # Add node information to be displayed on hover
   for node in nt.nodes:
-      node_str = """Node {ID} - Status: {Status}
+      n = player.nodes[int(node['id'])-1]
+      id_ = n.id
+      state_ = n.state
+      age_ = n.age
+      connections_ = n.connections
+      timeInfected_ = n.timeInfected
+      selectedbyAI_ = n.selectedByAI
+      node["title"] = f"""Node: {id_} - Status: {state_}
 
-                    Age: {Age} y/o
-                    Connections: {Connections}
-                    Time Infected: {TimeInfected}
+                    Age: {age_} y/o
+                    Connections: {connections_}
+                    Time Infected: {timeInfected_}
 
-                    Chosen By AI: {chosen}
+                    Chosen By AI: {selectedbyAI_}
                     """
-      node["title"] = node_str.format(**node)
 
-      if node["chosen"] == "True":
+      if selectedbyAI_ == "True":
         node["size"] = 30
 
   # nt.show("template.html")  # Save the visualization to an HTML file

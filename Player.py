@@ -44,10 +44,18 @@ class Player():
                 Id = row[0]
                 value = row[1:]
                 Patient_name = value[0]
-                state = value[1]
+                if value[1] == "Negative":
+                    state = 0
+                    visible = True
+                elif value[1] == "Positive":
+                    state = 1
+                    visible = True
+                else:
+                    state = None
+
                 connections = value[2]
 
-                Node_data[Id] = (Patient_name, state, connections)
+                Node_data[Id] = (Patient_name, state, connections, visible)
 
         for node in Node_data.keys():
             ns = nn.Node(node)
@@ -62,6 +70,7 @@ class Player():
 
             node.state = state
             node.name = Patient_name
+            node.visibleToPlayer = Node_data[Id][3]
             for i in connections.split(","):
                 node.connectNumbers.append(i)
                 node.connections.append(temp_nodes[int(i)-1])

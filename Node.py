@@ -70,12 +70,12 @@ def createNodeNetwork(numberOfNodes, nodes, min_connections, max_connections):
   #     centerValues.append
   
   # Create nodes
-  for newNodeId in range(numberOfNodes):
-    nodes.append(Node(newNodeId, centerValues))
+  for i, newNodeId in enumerate(range(numberOfNodes)):
+    nodes[i] = (Node(newNodeId, centerValues))
     centerValues.append((nodes[newNodeId].X, nodes[newNodeId].Y))
 
   # Make connections
-  for node in nodes:
+  for node in nodes.values():
     node.makeConnections(nodes, min_connections, max_connections)
 
 def runInfectionSimulation(numDays, nodes, selected_p_zero=None):
@@ -95,7 +95,7 @@ def runInfectionSimulation(numDays, nodes, selected_p_zero=None):
 
     infectednodes = []
 
-    for node in nodes:
+    for node in nodes.values():
       if node.state == 1:
         infectednodes.append(node)
 

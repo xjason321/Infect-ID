@@ -10,6 +10,7 @@ player1 = Player.Player(100, 2, 3, 4, 0.1, csv_pathway=csv_path)
 
 player1.load_csv()
 
-lis = player1.nodes
+lis = player1.nodes.values()
+print(lis)
 
 graph.CreateGraphHTML(player1)

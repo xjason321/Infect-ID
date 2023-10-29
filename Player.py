@@ -4,7 +4,7 @@ import csv
 
 class Player():
     def __init__(self, size, time, min, max, percent, csv_pathway=None):
-        self.nodes = [] # list of "Node" objects "
+        self.nodes = {} # dictionary of "Node" objects "
         self.size = size
         self.time = time
         self.min_connections, self.max_connections = min, max
@@ -16,23 +16,23 @@ class Player():
         self.is_winner = False
         self.is_done = False
 
-        # Network creation and infection simulation
-        nn.createNodeNetwork(self.size, self.nodes, self.min_connections, self.max_connections)
-        
-        self.p_zero = nn.runInfectionSimulation(self.time, self.nodes)
-
-        # Make x amount of nodes visible to player.
-        for i in range(self.num_visible_to_player):
-            while True:
-                node = random.choice(self.nodes)
-
-                if node.visibleToPlayer == False:
-                    node.visibleToPlayer = True
-                    break
+        if csv_pathway == None:        
+            # Network creation and infection simulation
+            nn.createNodeNetwork(self.size, self.nodes, self.min_connections, self.max_connections)
+            
+            self.p_zero = nn.runInfectionSimulation(self.time, self.nodes)
+    
+            # Make x amount of nodes visible to player.
+            for i in range(self.num_visible_to_player):
+                while True:
+                    node = random.choice(self.nodes)
+    
+                    if node.visibleToPlayer == False:
+                        node.visibleToPlayer = True
+                        break
 
     def load_csv(self):
 
-        temp_nodes = []
         Node_data = {}
 
         with open(self.csv, newline='') as csvfile:
@@ -41,9 +41,11 @@ class Player():
             next(reader, None)
                 
             for row in reader:
-                Id = row[0]
+                Id = int(row[0])
                 value = row[1:]
+                
                 Patient_name = value[0]
+                
                 if value[1] == "Negative":
                     state = 0
                     visible = True
@@ -52,33 +54,36 @@ class Player():
                     visible = True
                 else:
                     state = None
+                    visible = False
 
-                connections = value[2]
+                connections = value[2].split(", ")
 
                 Node_data[Id] = (Patient_name, state, connections, visible)
 
         for node in Node_data.keys():
             ns = nn.Node(node)
-            temp_nodes.append(ns) #node -> ID
-
-        for node in temp_nodes:
-                
+            self.nodes[node] = ns
+        
+        for node in self.nodes.values():
             Id = node.id
             Patient_name = Node_data[Id][0]
             state = Node_data[Id][1]
-            connections = Node_data[Id][2]
 
+            connections = []
+
+            for id in Node_data[Id][2]:
+                connections.append(self.nodes[int(id)])
+            
             node.state = state
             node.name = Patient_name
             node.visibleToPlayer = Node_data[Id][3]
-            for i in connections.split(","):
-                node.connectNumbers.append(i)
-                node.connections.append(temp_nodes[int(i)-1])
+            
+            for target_node in connections:
+                node.connectNumbers.append(int(target_node.id))
+                node.connections.append(self.nodes[target_node.id])
 
-        self.nodes = temp_nodes
-        
-
-
+        print(self.nodes)
+    
     # All of this is taken from player_actions.py
     def sample(self, id_to_sample):
         if id_to_sample in self.sampled:

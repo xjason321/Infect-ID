@@ -20,14 +20,13 @@ def run_ai(ai, player, percentSamples, percentTraced):
 
   # After, calculate likelihoods
   sorted_indices = ai.getSortedIds()
-
   # Find spread pattern for most likely
-  for Id in sorted_indices[-numTraced:]:
+  for Id in sorted_indices[:numTraced]:
     ai.TraceSpreadPattern(player, Id)
 
-  traced = sorted_indices[-numTraced:]
+  traced = sorted_indices[:numTraced]
 
-  print(f"Traced Spread Patterns For {sorted_indices[-numTraced:]}")
+  print(f"Traced Spread Patterns For {sorted_indices[:numTraced]}")
 
   # Compare likelihoods again
   sorted_indices = ai.getSortedIds()
@@ -48,9 +47,7 @@ app = Flask(__name__, template_folder='templates', static_folder='static')
 
 @app.route('/')
 def index():
-
-  # NEAT GENOME SHIT: (THESE WILL BE GENERATED)
-  # RIGHT NOW THEY ARE NUMBERS PULLED FROM MY ASS
+  # NEAT GENOME SHIT: (THESE ARE GENERATED)
   negativeEffectBias = 70.16
   positiveBias = 58.123
   positiveEffectBias = 22.98
@@ -58,38 +55,42 @@ def index():
   percentSamples = 0
   percentTraced = 0
 
-  '''
-  player = p.Player(
-      #size=random.randint(100, 450),
-      time=random.randint(2, 5),
-      min=random.randint(1, 3),
-      max=random.randint(4, 5),
-      percent=random.uniform(0.15, 0.25)  # initially given
-      .
-  )'''
+  # Random pathway -------
+  # player = p.Player(
+  #     size=random.randint(50, 100),
+  #     time=random.randint(1, 3),
+  #     min=random.randint(1, 2),
+  #     max=random.randint(2, 3),
+  #     percent=random.uniform(0.15, 0.25)  # initially given
+  # )
+  #----------
 
+  # User Uploaded pathway -------
   csv_path = "a.csv"
 
-  player = p.Player(100, 2, 3, 4, 0.1, csv_pathway=csv_path)
+  player = p.Player(17, 2, 3, 4, 0.1, csv_pathway=csv_path)
 
   player.load_csv()
+  # -------------------
 
-  '''ai = a.Algorithm(
-      size=player.size,
 
-      # NEAT
-      negativeEffectBias=negativeEffectBias,
-      positiveBias=positiveBias,
-      positiveEffectBias=positiveEffectBias,
-      similarityWeight=similarityWeight)
+  # FOR GEORGE: Uncomment this and change Algorithm.py to match dictionary
+  ai = a.Algorithm(
+       size=player.size,
+
+       # NEAT
+       negativeEffectBias=negativeEffectBias,
+       positiveBias=positiveBias,
+       positiveEffectBias=positiveEffectBias,
+       similarityWeight=similarityWeight)
 
   sorted, traced = run_ai(ai, player, percentSamples, percentTraced)
-  '''
+  
   # Start window loop
   nodes, edges = graph.CreateGraphHTML(player, "templates/index.html")
 
   numPositive, numNegative, numUnknown = 0, 0, 0
-  for node in player.nodes:
+  for node in player.nodes.values():
     if node.visibleToPlayer == False:
       numUnknown += 1
     elif node.state == 1: 
@@ -100,8 +101,6 @@ def index():
   return render_template('index.html',
                          nodes=nodes,
                          edges=edges,
-                         actual_p_zero=player.p_zero,
-                         sampled=str(player.sampled),
                          num_nodes=len(player.nodes),
                          num_positive=numPositive,
                          num_negative=numNegative,
@@ -112,10 +111,10 @@ def index():
                          num_visible=player.num_visible_to_player)
 
 
-if __name__ == "__main__":  # Makes sure this is the main process
-  app.run(  # Starts the site
-      host=
-      '0.0.0.0',  # EStablishes the host, required for repl to detect the site
-      port=random.randint(
-          2000, 9000)  # Randomly select the port the machine hosts on.
-  )
+# if __name__ == "__main__":  # Makes sure this is the main process
+#   app.run(  # Starts the site
+#       host=
+#       '0.0.0.0',  # EStablishes the host, required for repl to detect the site
+#       port=random.randint(
+#           2000, 9000)  # Randomly select the port the machine hosts on.
+#   )

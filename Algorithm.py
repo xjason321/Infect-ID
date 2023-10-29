@@ -31,7 +31,7 @@ class Algorithm():
 
     def ChooseOneToSample(self, player):
         # Find most likely after initial scan
-        self.InitialScan(player.nodes)
+        self.InitialScan(player.nodes.values())
 
         save = []
 
@@ -46,7 +46,7 @@ class Algorithm():
 
         # Find most likely nodes and sample them
         likelyNodes = []
-        for node in player.nodes:
+        for node in player.nodes.values():
             if self.nodeLikelihoods[node.id] == mostLikely:
                 likelyNodes.append(node.id)
 
@@ -64,17 +64,17 @@ class Algorithm():
         new_player = copy.deepcopy(Player)
 
         # Reset infections
-        for node in new_player.nodes:
+        for node in new_player.nodes.values():
             node.state = 0
 
-        nn.runInfectionSimulation(4, new_player.nodes, selected_p_zero=new_player.nodes[target_node])
+        nn.runInfectionSimulation(4, new_player.nodes, selected_p_zero=new_player.nodes[target_node+1])
 
-        infectionsForNewPlayer = [node.state for node in new_player.nodes]
-        infectionsForCurrentPlayer = [node.state for node in Player.nodes]
+        infectionsForNewPlayer = [node.state for node in new_player.nodes.values()]
+        infectionsForCurrentPlayer = [node.state for node in Player.nodes.values()]
 
         difference = math.fabs(self.FindDifference(infectionsForNewPlayer, infectionsForCurrentPlayer))
 
-        self.nodeLikelihoods[Player.nodes[target_node].id] -= (difference * self.similarityWeight)
+        self.nodeLikelihoods[int(Player.nodes[target_node+1].id) - 1] -= (difference * self.similarityWeight)
 
     def getSortedIds(self):
         indexed_arr = [(value, index) for index, value in enumerate(self.nodeLikelihoods)]

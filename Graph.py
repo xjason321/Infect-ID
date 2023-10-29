@@ -7,8 +7,10 @@ def CreateGraphHTML(player, path=None):
 
   elements = []
 
-  for i, node in enumerate(player.nodes):
+  for i, id in enumerate(player.nodes.keys()):
 
+    node = player.nodes[id]
+    
     if node.visibleToPlayer:
       if node.state == 1 and node.isPatientZero:
         status = "Infected"
@@ -23,7 +25,8 @@ def CreateGraphHTML(player, path=None):
       status = "Unknown"
       color = "gray"
 
-    elements.append((i, {"ID": str(node.id),\
+    
+    elements.append((i, {"ID": str(id),\
                          "Status": status,\
                          "color": color,\
                          "Age": str(node.age),\
@@ -32,17 +35,31 @@ def CreateGraphHTML(player, path=None):
                          "chosen": node.selectedByAI
                         }))
 
+
   G.add_nodes_from(elements)
 
-  #Bug!!
-  for node in player.nodes:
-    for connection in node.connectNumbers:
-      G.add_edge(node.id, connection)
+  #--Bug-- (fixed by Jason 10/28)
+  for node in player.nodes.values():
+    for connection in node.connections:
+      G.add_edge(node.id, connection.id)
   #...
-
   
+  # Create a mapping between NetworkX node IDs and their positions in the elements list
+  node_id_to_position = {str(node[1]["ID"]): i for i, node in enumerate(elements)}
+
+  # Create a new Network object
   nt = Network(notebook=True)
-  nt.from_nx(G)
+
+  # Add nodes and edges directly from your NetworkX graph
+  for node in G.nodes:
+      # Get the corresponding position in the elements list based on the node's ID
+      position = node_id_to_position.get(str(node), None)
+
+      if position is not None:
+          nt.add_node(node, **elements[position][1])  # Add node with attributes
+
+  for edge in G.edges:
+      nt.add_edge(edge[0], edge[1])
 
   nt.width = "70%"
 
@@ -59,12 +76,12 @@ def CreateGraphHTML(player, path=None):
       """)
 
   # Add node information to be displayed on hover
-  for node in nt.nodes:
-      n = player.nodes[int(node['id'])-1]
+  for i, node in enumerate(nt.nodes):
+      n = player.nodes[int(node['label'])]
       id_ = n.id
       state_ = n.state
       age_ = n.age
-      connections_ = n.connections
+      connections_ = n.connectNumbers
       timeInfected_ = n.timeInfected
       selectedbyAI_ = n.selectedByAI
       node["title"] = f"""Node: {id_} - Status: {state_}

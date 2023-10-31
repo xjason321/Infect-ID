@@ -86,3 +86,39 @@ class Algorithm():
         sorted_indices = [index for _, index in sorted_arr]
 
         return sorted_indices
+
+
+def run_ai(ai, player, percentSamples, percentTraced):
+
+  numSamples = round(percentSamples * player.size)
+  numTraced = round(percentTraced * numSamples)
+  numberToSelect = math.ceil(0.03 * player.size)
+
+  for _ in range(numSamples):
+    chosen = ai.ChooseOneToSample(player)
+    player.sample(chosen)
+
+  print(f"Sampled {len(player.sampled)} Nodes: {player.sampled}")
+
+  # After, calculate likelihoods
+  sorted_indices = ai.getSortedIds()
+  # Find spread pattern for most likely
+  for Id in sorted_indices[:numTraced]:
+    ai.TraceSpreadPattern(player, Id)
+
+  traced = sorted_indices[:numTraced]
+
+  print(f"Traced Spread Patterns For {sorted_indices[:numTraced]}")
+
+  # Compare likelihoods again
+  sorted_indices = ai.getSortedIds()
+
+  # Print 5 Top Choices (rightmost is the one it's most confident in)
+  print(
+      f"Top Choices From AI (least confident to most confident, right being most confident): \n{sorted_indices[-numberToSelect:]}"
+  )
+
+  for nodeNumber in sorted_indices[-numberToSelect:]:
+    player.nodes[nodeNumber].selectedByAI = "True"
+
+  return sorted_indices, traced

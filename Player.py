@@ -21,6 +21,8 @@ class Player():
             nn.createNodeNetwork(self.size, self.nodes, self.min_connections, self.max_connections)
             
             self.p_zero = nn.runInfectionSimulation(self.time, self.nodes)
+
+            print(self.p_zero)
     
             # Make x amount of nodes visible to player.
             for i in range(self.num_visible_to_player):

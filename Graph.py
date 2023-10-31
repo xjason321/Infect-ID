@@ -79,9 +79,15 @@ def CreateGraphHTML(player, path=None):
   for i, node in enumerate(nt.nodes):
       n = player.nodes[int(node['label'])]
       id_ = n.id
-      state_ = n.state
+    
+      if n.visibleToPlayer:
+        state_ = "Positive" if n.state == 1 else "Negative"
+      else:
+        state_ = "Unknown"
+        
       age_ = n.age
       connections_ = n.connectNumbers
+      isPatientZero = n.isPatientZero
       timeInfected_ = n.timeInfected
       selectedbyAI_ = n.selectedByAI
       node["title"] = f"""Node: {id_} - Status: {state_}
@@ -94,7 +100,7 @@ def CreateGraphHTML(player, path=None):
                     """
 
       if selectedbyAI_ == "True":
-        node["size"] = 30
+        node["size"] = 40
 
   # nt.show("template.html")  # Save the visualization to an HTML file
 

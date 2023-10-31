@@ -7,9 +7,9 @@
 
 <a href="url"><img src="https://github.com/xjason321/indect-id/assets/80063717/68ca3fe3-6a6c-4762-90ef-2223b655a3c3" align="left" height="48" width="48" ></a>
 
-Infect-ID: Built by Jason Xie, David Wan, Vaibhav Sridhar, and George Wang 
+**Infect-ID: Built by Jason Xie, David Wan, Vaibhav Sridhar, and George Wang**
 
-Submission for "The Congressional App Challenge 2023" - (CA 29)
+**Submission for "The Congressional App Challenge 2023" - (CA 29)**
 
 ---------------------------------------------------------------------------------------
 
@@ -43,3 +43,9 @@ project under an open-source license for others to continue editing and contribu
 
 _From the creators,
 Jason Xie, David Wan, Vaibhav Sridhar, and George Wang_
+
+----------------------------------------------------------------------------------------
+
+Demonstration Video Here: https://youtu.be/y6xf7RRGUx8?si=zaFGojh3RM6iwxVT
+
+-----------------------------------------------------------------------------------------

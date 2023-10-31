@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Transition - infect-id</title>
+    <meta property="og:title" content="Transition - infect-id" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta property="twitter:card" content="summary_large_image" />
+
+    <style data-tag="reset-style-sheet">
+      html {  line-height: 1.15;}body {  margin: 0;}* {  box-sizing: border-box;  border-width: 0;  border-style: solid;}p,li,ul,pre,div,h1,h2,h3,h4,h5,h6,figure,blockquote,figcaption {  margin: 0;  padding: 0;}button {  background-color: transparent;}button,input,optgroup,select,textarea {  font-family: inherit;  font-size: 100%;  line-height: 1.15;  margin: 0;}button,select {  text-transform: none;}button,[type="button"],[type="reset"],[type="submit"] {  -webkit-appearance: button;}button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner {  border-style: none;  padding: 0;}button:-moz-focus,[type="button"]:-moz-focus,[type="reset"]:-moz-focus,[type="submit"]:-moz-focus {  outline: 1px dotted ButtonText;}a {  color: inherit;  text-decoration: inherit;}input {  padding: 2px 4px;}img {  display: block;}html { scroll-behavior: smooth  }
+    </style>
+    <style data-tag="default-style-sheet">
+      html {
+        font-family: Inter;
+        font-size: 16px;
+      }
+
+      body {
+        font-weight: 400;
+        font-style:normal;
+        text-decoration: none;
+        text-transform: none;
+        letter-spacing: normal;
+        line-height: 1.15;
+        color: var(--dl-color-gray-black);
+        background-color: var(--dl-color-gray-white);
+
+      }
+    </style>
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='logo.png') }}"
+      type="icon/png"
+      sizes="32x32"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+  </head>
+  <body>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <div>
+      <link href="{{ url_for('static', filename='transition.css') }}" rel="stylesheet" />
+
+      <div class="transition-container">
+        <div class="transition-container1">
+          <div class="transition-container2">
+            <img
+              alt="image"
+              src="{{ url_for('static', filename='example.png') }}"
+              href="https://docs.google.com/spreadsheets/d/1RsrURAIacb5MYQlZupBPJlYxpZwMj43RNnxjEtGR6mA/copy"
+              class="transition-image"
+            />
+            <a href="https://docs.google.com/spreadsheets/d/1RsrURAIacb5MYQlZupBPJlYxpZwMj43RNnxjEtGR6mA/copy">
+            <h1 class="transition-text">Click here for the template.</h1>
+            </a>
+          </div>
+          <div class="transition-container3">
+            <h1 class="transition-text01">
+              <span class="transition-text02">
+                Upload your patient network.
+              </span>
+              <br class="transition-text03" />
+              <br class="transition-text04" />
+              <span class="transition-text05">
+                If this is your first time, use the
+              </span>
+              <span class="transition-text06">template at left.</span>
+              <br class="transition-text08" />
+            </h1>
+            {% if message %}
+            <span class="transition-text05" style="color: pink;">{{message}}</span>
+            {% endif %}
+            <form class="transition-form" action="/process" method="POST" enctype="multipart/form-data">
+              <input
+                type="file"
+                name="file"
+                placeholder="placeholder"
+                accept="csv"
+                id="file"
+                class="transition-textinput input"
+                required
+              />
+              <input type="submit" class="transition-button button" value="Upload">
+            </form>
+            <h1 class="transition-text09">
+              <span class="transition-text10">
+                Or, if you don't have a network...
+              </span>
+              <br class="transition-text11" />
+            </h1>
+            <button type="button" class="transition-button1 button">
+              <span class="transition-text12">
+                <a href="{{ url_for('visual') }}">
+                <span class="transition-text13">Try a Demo (Random)</span>
+                </a>
+                <br />
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      defer=""
+      src="https://unpkg.com/@teleporthq/teleport-custom-scripts"
+    ></script>
+  </body>
+</html>

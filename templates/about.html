@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>About - infect-id</title>
+    <meta property="og:title" content="About - infect-id" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta property="twitter:card" content="summary_large_image" />
+
+    <style data-tag="reset-style-sheet">
+      html {  line-height: 1.15;}body {  margin: 0;}* {  box-sizing: border-box;  border-width: 0;  border-style: solid;}p,li,ul,pre,div,h1,h2,h3,h4,h5,h6,figure,blockquote,figcaption {  margin: 0;  padding: 0;}button {  background-color: transparent;}button,input,optgroup,select,textarea {  font-family: inherit;  font-size: 100%;  line-height: 1.15;  margin: 0;}button,select {  text-transform: none;}button,[type="button"],[type="reset"],[type="submit"] {  -webkit-appearance: button;}button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner {  border-style: none;  padding: 0;}button:-moz-focus,[type="button"]:-moz-focus,[type="reset"]:-moz-focus,[type="submit"]:-moz-focus {  outline: 1px dotted ButtonText;}a {  color: inherit;  text-decoration: inherit;}input {  padding: 2px 4px;}img {  display: block;}html { scroll-behavior: smooth  }
+    </style>
+    <style data-tag="default-style-sheet">
+      html {
+        font-family: Inter;
+        font-size: 16px;
+      }
+
+      body {
+        font-weight: 400;
+        font-style:normal;
+        text-decoration: none;
+        text-transform: none;
+        letter-spacing: normal;
+        line-height: 1.15;
+        color: var(--dl-color-gray-black);
+        background-color: var(--dl-color-gray-white);
+
+      }
+    </style>
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='logo.png') }}"
+      type="icon/png"
+      sizes="32x32"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+  </head>
+  <body>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <div>
+      <link href="{{ url_for('static', filename='about.css') }}" rel="stylesheet"/>
+
+      <div class="about-container">
+        <header data-thq="thq-navbar" class="about-navbar-interactive">
+          <a href="{{ url_for('home')}}" class="about-navlink">
+            <img alt="image" src="{{ url_for('static', filename='banner.png') }}" class="about-image" />
+          </a>
+          <div data-thq="thq-navbar-nav" class="about-desktop-menu">
+            <nav class="about-links">
+              <a href="{{ url_for('home')}}" class="about-navlink1">Home</a>
+              <a href="{{ url_for('howto')}}" class="about-navlink2">How to Use</a>
+              <a href="{{ url_for('about')}}" class="about-navlink3">
+                About Infect-ID and Creators
+              </a>
+            </nav>
+            <div class="about-buttons">
+              <button class="about-login button">
+                <span class="about-text">
+                  <a href="{{ url_for('main') }}"
+                  <span>Try Infect-ID</span>
+                  <br />
+                  </a>
+                </span>
+              </button>
+            </div>
+          </div>
+          <!-- <div data-thq="thq-burger-menu" class="about-burger-menu">
+          </div> -->
+          <!-- <div data-thq="thq-mobile-menu" class="about-mobile-menu">
+            <div class="about-nav">
+              <div class="about-top">
+                <img
+                  alt="image"
+                  src="https://presentation-website-assets.teleporthq.io/logos/logo.png"
+                  class="about-logo"
+                />
+                <div data-thq="thq-close-menu" class="about-close-menu">
+                </div>
+              </div>
+              <div class="about-buttons1">
+              </div>
+            </div>
+            <div>
+            </div>
+          </div> -->
+        </header>
+        <div class="about-container1">
+          <h1 class="about-text08">
+            <span>About Infect-ID</span>
+            <br />
+          </h1>
+          <h1 class="about-text11">
+            <span class="about-text12">
+              The idea of Infect-ID sparked from the recent pandemic, that of
+              course being COVID-19.&nbsp;
+            </span>
+            <br class="about-text13" />
+            <br class="about-text14" />
+            <span class="about-text15">
+              We realized the importance of locating patient zero. Officials
+              could isolate and quarantine likely infected and predict a spread
+              pattern.&nbsp;
+            </span>
+            <span class="about-text16">Also, in the future,</span>
+            <span class="about-text17">
+              &nbsp;it becomes important for epidemiologists to find the first
+              known case because it helps work out how the outbreak occurred,
+              and gives us an idea of how to prevent further outbreaks in the
+              future.
+            </span>
+            <br class="about-text18" />
+            <br class="about-text19" />
+            <span class="about-text20">
+              As high school students, we know our tool is not a perfect nor
+              completely practical one. However, it
+            </span>
+            <span class="about-text21">is</span>
+            <span class="about-text22">a prototype that</span>
+            <span class="about-text23">can</span>
+            <span class="about-text24">be developed further.</span>
+            <br class="about-text25" />
+            <br class="about-text26" />
+            <span class="about-text27">
+              This is a tool we've released in hopes it can be developed
+              further. As such, we have released our project under an
+              open-source license for others to continue editing and
+              contributing to our vision. See our Github repository below.&nbsp;
+            </span>
+            <br class="about-text28" />
+            <br class="about-text29" />
+            <span class="about-text30">From the creators,</span>
+            <br class="about-text31" />
+            <span class="about-text32">
+              Jason Xie, David Wan, Vaibhav Sridhar, and Subhash Srinivasa&nbsp;
+            </span>
+            <br class="about-text33" />
+          </h1>
+          <div class="about-container2">
+            <button type="button" class="about-button button">
+              <span>
+                <span class="about-text35">Infect_ID -</span>
+                <span class="about-text36">Github Repo</span>
+                <br />
+              </span>
+            </button>
+          </div>
+          <div class="about-container3">
+            <div class="about-container4">
+              <svg viewBox="0 0 877.7142857142857 1024" class="about-icon10">
+                <path
+                  d="M877.714 512c0 242.286-196.571 438.857-438.857 438.857s-438.857-196.571-438.857-438.857 196.571-438.857 438.857-438.857 438.857 196.571 438.857 438.857z"
+                ></path>
+              </svg>
+            </div>
+            <img alt="image" src="{{ url_for('static', filename='github.png') }}" class="about-image1" />
+          </div>
+          <svg viewBox="0 0 877.7142857142857 1024" class="about-icon12">
+            <path
+              d="M877.714 512c0 242.286-196.571 438.857-438.857 438.857s-438.857-196.571-438.857-438.857 196.571-438.857 438.857-438.857 438.857 196.571 438.857 438.857z"
+            ></path>
+          </svg>
+          </div>
+          </div>
+          </div>

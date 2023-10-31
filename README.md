@@ -1,6 +1,10 @@
 # Infect-ID: A Patient Network Visualization Tool
 
+![Screenshot 2023-10-22 11 11 00 PM](https://github.com/xjason321/indect-id/assets/80063717/914d1cc7-c37d-43f3-ba64-5d90f998c6a0)
+
 <a href="url"><img src="https://github.com/xjason321/indect-id/assets/80063717/68ca3fe3-6a6c-4762-90ef-2223b655a3c3" align="left" height="48" width="48" ></a>
+
+---------------------------------------------------------------------------------------
 
 Infect-ID: Built for the Congressional App Challenge - 2023 (CA 29)
 

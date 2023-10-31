@@ -1,264 +1,249 @@
-<html>
-    <head>
-        <meta charset="utf-8">        
-            <!-- <script src="lib/bindings/utils.js"></script> -->
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>infect-id</title>
+    <meta property="og:title" content="infect-id" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta property="twitter:card" content="summary_large_image" />
 
-<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
-<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
-        <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
-          crossorigin="anonymous"
-        />
-        <script
-          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
-          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
-          crossorigin="anonymous"
-        ></script>
+    <style data-tag="reset-style-sheet">
+      html {  line-height: 1.15;}body {  margin: 0;}* {  box-sizing: border-box;  border-width: 0;  border-style: solid;}p,li,ul,pre,div,h1,h2,h3,h4,h5,h6,figure,blockquote,figcaption {  margin: 0;  padding: 0;}button {  background-color: transparent;}button,input,optgroup,select,textarea {  font-family: inherit;  font-size: 100%;  line-height: 1.15;  margin: 0;}button,select {  text-transform: none;}button,[type="button"],[type="reset"],[type="submit"] {  -webkit-appearance: button;}button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner {  border-style: none;  padding: 0;}button:-moz-focus,[type="button"]:-moz-focus,[type="reset"]:-moz-focus,[type="submit"]:-moz-focus {  outline: 1px dotted ButtonText;}a {  color: inherit;  text-decoration: inherit;}input {  padding: 2px 4px;}img {  display: block;}html { scroll-behavior: smooth  }
+    </style>
+    <style data-tag="default-style-sheet">
+      html {
+        font-family: Inter;
+        font-size: 16px;
+      }
 
-        <style type="text/css">
+      body {
+        font-weight: 400;
+        font-style:normal;
+        text-decoration: none;
+        text-transform: none;
+        letter-spacing: normal;
+        line-height: 1.15;
+        color: var(--dl-color-gray-black);
+        background-color: var(--dl-color-gray-white);
 
-             #mynetwork {
-                 height: 600px;
-                 background-color: white;
-                 border: 3px solid white;
-                 position: relative;
-             }
-          
-              
-              .column {
-                flex: 50%;
-                float: right;
-              }
+      }
+    </style>
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='icon.png') }}"
+      type="icon/png"
+      sizes="32x32"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+  </head>
+  <body>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <div>
+      <link href="{{ url_for('static', filename='index.css') }}" rel="stylesheet" />
 
-             
-             #loadingBar {
-                 position: absolute;
-                 top:0px;
-                 left:0px;
-                 width: 100%;
-                 height: 100%;
-                 background-color:rgba(200,200,200,0.8);
-                 -webkit-transition: all 0.5s ease;
-                 -moz-transition: all 0.5s ease;
-                 -ms-transition: all 0.5s ease;
-                 -o-transition: all 0.5s ease;
-                 transition: all 0.5s ease;
-                 opacity:1;
-             }
-
-             #bar {
-                 position:absolute;
-                 top:0px;
-                 left:0px;
-                 width:20px;
-                 height:20px;
-                 margin:auto auto auto auto;
-                 border-radius:11px;
-                 /* border:2px solid rgba(30,30,30,0.05); */
-                 background: rgb(0, 173, 246); /* Old browsers */
-                 /* box-shadow: 2px 0px 4px rgba(0,0,0,0.4); */
-             }
-
-             #border {
-                 position:absolute;
-                 top:10px;
-                 left:10px;
-                 width:500px;
-                 height:23px;
-                 margin:auto auto auto auto;
-                 /* box-shadow: 0px 0px 4px rgba(0,0,0,0.2); */
-                 border-radius:10px;
-             }
-
-             #text {
-                 position:absolute;
-                 top:8px;
-                 left:530px;
-                 width:30px;
-                 height:50px;
-                 margin:auto auto auto auto;
-                 font-size:16px;
-                 font-family: "Calibri";
-                 color: #000000;
-             }
-
-             div.outerBorder {
-                 position:relative;
-                 top:40%;
-                 width:600px;
-                 height:55px;
-                 margin:auto auto auto auto;
-                 border:8px solid rgba(0,0,0,0.1);
-                 background: rgb(252,252,252); /* Old browsers */
-                 background: -moz-linear-gradient(top,  rgba(252,252,252,1) 0%, rgba(237,237,237,1) 100%); /* FF3.6+ */
-                 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,252,252,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
-                 background: -webkit-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
-                 background: -o-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
-                 background: -ms-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* IE10+ */
-                 background: linear-gradient(to bottom,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* W3C */
-                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
-                 border-radius:72px;
-                 box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
-             }
-
-            nav {
-              background-color: #333;
-              color: #fff;
-              padding: 20px;
-            }
-        </style>
-    </head>
-
-  <div>
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
-    <div class="page-container">
-      <div class="page-container1">
-        <div class="page-container2">
-          <h1 class="page-text08" style="margin: 40px 0px;">
-            <span>&quot;Unnamed Network&quot;</span>
-            <br />
-            <span>10/20/23</span>
-          </h1>
-          <span class="page-text16">
-            <span class="page-text17">Network Info:</span>
-            <br class="page-text18" />
-            <br class="page-text19" />
-            <span class="page-text20">{{ num_nodes }} Nodes Total</span>
-            <br class="page-text21" />
-            <br class="page-text22" />
-            <span class="page-text23">{{ num_positive }} Positive</span>
-            <br class="page-text24" />
-            <span class="page-text25">{{ num_negative }} Negative</span>
-            <br class="page-text26" />
-            <span class="page-text27">{{ num_unknown }} Unknown</span>
-            <br class="page-text28" />
-            <br class="page-text29" />
-            <span class="page-text30">Click around</span>
-            <span class="page-text31">
-              to change this info box!
-            </span>
-            <br class="page-text32" />
-          </span>
-        </div>
-        <div class="page-container3">
-          <div class="card" style="height: 100%; width:100%">
-              <div id="mynetwork" class="card-body"></div>
-              <div id="loadingBar">
-                <div class="outerBorder">
-                  <div id="text">0%</div>
-                  <div id="border">
-                    <div id="bar"></div>
-                  </div>
+      <div class="home-container">
+        <header data-thq="thq-navbar" class="home-navbar-interactive">
+          <a href="{{ url_for('home') }}" class="home-navlink">
+            <img alt="image" src="{{ url_for('static', filename='banner.png') }}" class="home-image" />
+          </a>
+          <div data-thq="thq-navbar-nav" class="home-desktop-menu">
+            <nav class="home-links">
+              <a href="{{ url_for('home') }}" class="home-navlink1">Home</a>
+              <a href="{{ url_for('howto') }}" class="home-navlink2">How to Use</a>
+              <a href="{{ url_for('about') }}" class="home-navlink3">
+                About Infect-ID and Creators
+              </a>
+            </nav>
+            <div class="home-buttons">
+              <button class="home-login button">
+                <span class="home-text">
+                  <a href="{{ url_for('main') }}">
+                  <span>Try Infect-ID</span>
+                  <br/>
+                  </a>
+                </span>
+              </button>
+            </div>
+          </div>
+          <div data-thq="thq-burger-menu" class="home-burger-menu">
+          </div>
+          <div data-thq="thq-mobile-menu" class="home-mobile-menu">
+            <div class="home-nav">
+              <div class="home-top">
+                <img
+                  alt="image"
+                  src="https://presentation-website-assets.teleporthq.io/logos/logo.png"
+                  class="home-logo"
+                />
+                <div data-thq="thq-close-menu" class="home-close-menu">
+                  <svg viewBox="0 0 1024 1024" class="home-icon02">
+                    <path
+                      d="M810 274l-238 238 238 238-60 60-238-238-238 238-60-60 238-238-238-238 60-60 238 238 238-238z"
+                    ></path>
+                  </svg>
                 </div>
               </div>
+              <!-- <nav class="home-links1">
+                <span class="home-text03">About</span>
+                <span class="home-text04">Features</span>
+                <span class="home-text05">Pricing</span>
+                <span class="home-text06">Team</span>
+                <span class="home-text07">Blog</span>
+              </nav> -->
+              <!-- <div class="home-buttons1">
+                <button class="home-login1 button">Login</button>
+                <button class="button">Register</button>
+              </div>
+            </div>
+            <div> -->
+              
+            </div>
+          </div>
+        </header>
+        <div class="home-container1">
+          <h1 class="home-text08">
+            <span>Find Patient Zero, Fast.</span>
+            <br />
+          </h1>
+          <h2 class="home-text11">
+            <span>Visualize your network and use an algorithm with</span>
+            <br />
+            <span>a</span>
+            <span>95%</span>
+            <span>test accuracy to find</span>
+            <span>patient zero in a network.</span>
+          </h2>
+          <a href="{{ url_for('main') }}">
+          <button type="button" class="home-button button">
+            Go to Infect-ID
+          </button>
+        </a>
+        </div>
+        <div class="home-container2">
+          <h1 class="home-text18">
+            <span class="home-text19">Visualize</span>
+            <span class="home-text20">Your</span>
+            <span class="home-text21"></span>
+            <br class="home-text22" />
+            <span class="home-text23">Network Today</span>
+            <br />
+          </h1>
+          <span class="home-text25">
+            <span class="home-text26">Upload a CSV file</span>
+            <span>of your</span>
+            <br />
+            <span>patient data to visualize it.</span>
+            <br />
+            <br />
+            <span>Infect-ID comes with a</span>
+            <span class="home-text33">node</span>
+            <br class="home-text34" />
+            <span class="home-text35">visualization tool</span>
+            <span>for you to view</span>
+            <br/>
+            <span>patient networks in a clean format.</span>
+            <br />
+          </span>
+          <img
+            alt="Node Network"
+            src="https://images.unsplash.com/photo-1645839057098-5ea8761a6b09?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDQ2fHxuZXVyYWwlMjBuZXR3b3JrfGVufDB8fHx8MTY5NzMxNTIzNHww&amp;ixlib=rb-4.0.3&amp;w=800"
+            class="home-image1"
+          />
+        </div>
+        <div class="home-container3">
+          <h1 class="home-text42">
+            <span class="home-text43">Find Likely Patient Zeros</span>
+            <br />
+          </h1>
+          <span class="home-text45">
+            <span class="home-text46">Our algorithm uses</span>
+            <span class="home-text47">local node probability weighting</span>
+            <span class="home-text48">and</span>
+            <span class="home-text49">levels of back-tracing</span>
+            <span class="home-text50">
+              to nominate the top nodes with the highest probability of being
+              patient zero.&nbsp;
+            </span>
+            <br class="home-text51" />
+            <br class="home-text52" />
+            <br class="home-text53" />
+            <span class="home-text54">
+              The weights and biases were determined using a
+            </span>
+            <span class="home-text55">"NEAT"</span>
+            <span class="home-text56">
+              algorithm, which uses natural selection. See more about
+              NeuroEvolution of Augmenting Topologies (NEAT)
+            </span>
+            <a
+              href="https://neat-python.readthedocs.io/en/latest/"
+              target="_blank"
+              rel="noreferrer noopener"
+              class="home-link"
+            >here</a>
+            <span class="home-text57">.</span>
+            <br class="home-text58"/>
+          </span>
+          <img
+            alt="image"
+            src="https://images.unsplash.com/photo-1649429398909-db7ae841c386?ixid=M3w5MTMyMXwwfDF8c2VhcmNofDE3OHx8bmV1cmFsJTIwbmV0d29ya3xlbnwwfHx8fDE2OTczMTUzNTh8MA&amp;ixlib=rb-4.0.3&amp;w=500"
+            class="home-image2"
+          />
+        </div>
+        <div class="home-container4">
+          <span class="home-text59">Want to try it out?</span>
+          <div class="home-container5">
+            <a href="{{ url_for('main') }}">
+            <button type="button" class="home-button1 button">
+              Go to Infect-ID
+            </button>
+            </a>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  
-    <nav style="text-align:center;">
-      <h3><b>Infect-ID</b></h3>
-      <h5>A Patient Zero Detection App</h5>
-    </nav>
-  
-    <body>
-      
-      
-        
-        <script type="text/javascript">
-
-              // initialize global variables.
-              var edges;
-              var nodes;
-              var allNodes;
-              var allEdges;
-              var nodeColors;
-              var originalNodes;
-              var network;
-              var container;
-              var options, data;
-              var filter = {
-                  item : '',
-                  property : '',
-                  value : []
-              };
-
-              
-
-              
-
-              // This method is responsible for drawing the graph, returns the drawn network
-              function drawGraph() {
-                  var container = document.getElementById('mynetwork');
-
-                  
-
-                  // parsing and collecting nodes and edges from the python
-                {{ nodes|safe }}
-                {{ edges|safe }}
-                  nodeColors = {};
-                  allNodes = nodes.get({ returnType: "Object" });
-                  for (nodeId in allNodes) {
-                    nodeColors[nodeId] = allNodes[nodeId].color;
-                  }
-                  allEdges = edges.get({ returnType: "Object" });
-                  // adding nodes and edges to the graph
-                  data = {nodes: nodes, edges: edges};
-
-                  var options = {
-                    "physics": {
-                      "barnesHut": {
-                        "avoidOverlap": 0,
-                        "centralGravity": 0.3, 
-                        "gravitationalConstant": -8000,
-                        "damping": 0.09,
-                        "springLength": 100
-                      }
-                    },
-                    "interaction": {
-                      "dragNodes": true,
-                      "hideEdgesOnDrag": false
-                    }
-                  }
-                  
-
-                  network = new vis.Network(container, data, options);
-
-                  
-
-                  
-
-                  
-
-
-                  
-                      network.on("stabilizationProgress", function(params) {
-                          document.getElementById('loadingBar').removeAttribute("style");
-                          var maxWidth = 496;
-                          var minWidth = 20;
-                          var widthFactor = params.iterations/params.total;
-                          var width = Math.max(minWidth,maxWidth * widthFactor);
-                          document.getElementById('bar').style.width = width + 'px';
-                          document.getElementById('text').innerHTML = Math.round(widthFactor*100) + '%';
-                      });
-                      network.once("stabilizationIterationsDone", function() {
-                          document.getElementById('text').innerHTML = '100%';
-                          document.getElementById('bar').style.width = '496px';
-                          document.getElementById('loadingBar').style.opacity = 0;
-                          // // really clean the dom element
-                          setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
-                      });
-                  
-
-                  return network;
-
-              }
-              drawGraph();
-        </script>
-    </body>
+    <script
+      defer=""
+      src="https://unpkg.com/@teleporthq/teleport-custom-scripts"
+    ></script>
+  </body>
 </html>

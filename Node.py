@@ -1,6 +1,5 @@
 import random
 
-
 class Node():
 
   def __init__(self, id, centerValues=0):
